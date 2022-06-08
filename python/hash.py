@@ -1,24 +1,40 @@
+from operator import truediv
+
+
 class HashTable:
   def __init__(self, number_of_buckets):
-    # self.number_of_buckets = number_of_buckets
-    # self.table = [None] * self.number_of_buckets
-    pass
+    self.number_of_buckets = number_of_buckets
+    self.table = {}
+    
 
   def hash(self, value):
-    # here is where you'll turn your 'value' into a hash value that will return the index of your table to insert value
-    # IMPORTANT: Think about how you'd store values into the same index
-    pass
+    hash = 0
+    for i in value:
+      hash = hash + ord(i)
+    
+    return hash % self.number_of_buckets
 
   def set(self, value):
-    # here is where you'll perform your logic to insert the value into your table
-    # you'll also call your hash method here to get the index where you'll store the value
-    pass
+    index = self.hash(value)
+    self.table[str(index)] = value
 
   def get(self, value):
-    # here is where you'll retreive your value from the hash table
-    # IMPORTANT: Think about how you'd retreive a value that from an index that has multiple values
-    pass
+    index = self.hash(value)
+    return self.table[str(index)]
 
   def has_key(self, value):
-    # here is where you'll return a True or False value if there is a value stored at a specific index in your HashTable
-    pass
+    key_list = self.table.keys()
+    for x in key_list:
+      if x == str(value):
+        return True
+
+    return False    
+
+
+hash = HashTable(34)
+
+hash.set("hello")
+hash.set("there")
+print(hash.get("hello"))
+print(hash.has_key(22))
+
